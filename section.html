@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sección de Colores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 id="section-title">🔍 Sección</h1>
+  <div class="color-buttons"></div>
+
+  <div class="color-info" id="notes-container"></div>
+
+  <script src="data.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get("section");
+
+    document.getElementById("section-title").textContent = section;
+
+    const container = document.querySelector(".color-buttons");
+    const notesContainer = document.getElementById("notes-container");
+
+    const colors = Object.keys(data[section]);
+
+    // Diccionario de emojis por color base
+    const colorEmojis = {
+      "Blanco de Titanio": "⚪", "Magenta": "🟣", "Amarillo Medio": "🟡",
+      "Azul Ultramar": "🔵", "Rojo Medio": "🔴", "Azul de Cobalto": "🔵"
+    };
+
+    // Mostrar botones con emojis
+    colors.forEach(colorName => {
+      const parts = data[section][colorName].parts;
+      const firstPart = Object.keys(parts)[0];
+      const emoji = colorEmojis[firstPart] || "";
+
+      const button = document.createElement("button");
+      button.innerHTML = `${emoji} ${colorName}`;
+      button.onclick = () => {
+        window.location.href = `color.html?section=${encodeURIComponent(section)}&color=${encodeURIComponent(colorName)}`;
+      };
+      container.appendChild(button);
+    });
+
+    // Mostrar notas finales del primer color de la sección
+    const sampleColor = data[section][colors[0]];
+    if (sampleColor.notes) {
+      const ul = document.createElement("ul");
+      sampleColor.notes.forEach(note => {
+        const li = document.createElement("li");
+        li.textContent = note;
+        ul.appendChild(li);
+      });
+      notesContainer.innerHTML = "<h2>📌 Notas Finales</h2>";
+      notesContainer.appendChild(ul);
+    }
+  </script>
+</body>
+</html>

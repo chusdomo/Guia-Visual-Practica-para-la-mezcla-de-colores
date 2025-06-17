@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Detalles del Color</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 id="color-title">🔎 Color</h1>
+  <p id="color-subtitle">Proporciones decimales:</p>
+  <ul id="parts-list"></ul>
+
+  <div class="color-info" id="notes-container"></div>
+
+  <script src="data.js"></script>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const section = urlParams.get("section");
+    const colorName = urlParams.get("color");
+
+    document.getElementById("color-title").textContent = colorName;
+
+    const partsList = document.getElementById("parts-list");
+    const notesContainer = document.getElementById("notes-container");
+
+    const colorData = data[section][colorName];
+
+    // Diccionario de emojis por componente
+    const colorEmojis = {
+      "Blanco de Titanio": "⚪", "Magenta": "🟣", "Amarillo Medio": "🟡",
+      "Azul Ultramar": "🔵", "Rojo Medio": "🔴", "Azul de Cobalto": "🔵"
+    };
+
+    // Mostrar partes con emojis
+    for (let part in colorData.parts) {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${colorEmojis[part] || ""} ${part}</strong>: ${colorData.parts[part].toFixed(2)}`;
+      partsList.appendChild(li);
+    }
+
+    // Mostrar notas finales
+    if (colorData.notes) {
+      const ulNotes = document.createElement("ul");
+      colorData.notes.forEach(note => {
+        const li = document.createElement("li");
+        li.textContent = note;
+        ulNotes.appendChild(li);
+      });
+      notesContainer.innerHTML = "<h2>📌 Notas</h2>";
+      notesContainer.appendChild(ulNotes);
+    }
+  </script>
+</body>
+</html>

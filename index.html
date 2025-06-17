@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Guía Visual Mezcla de Colores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🎨 Guía Visual Práctica para la Mezcla de Colores</h1>
+
+  <div class="button-grid">
+    <a href="section.html?section=Tonos de Rojo">🔴 Tonos de Rojo</a>
+    <a href="section.html?section=Tonos de Amarillo">🟡 Tonos de Amarillo</a>
+    <a href="section.html?section=Tonos de Azul">🔵 Tonos de Azul</a>
+    <a href="section.html?section=Tonos de Rosa">🟣 Tonos de Rosa</a>
+    <a href="section.html?section=Tonos de Verde">🟢 Tonos de Verde</a>
+    <a href="section.html?section=Tonos de Blanco">⚪ Tonos de Blanco</a>
+    <a href="section.html?section=Tonos de Negro">⚫ Tonos de Negro</a>
+    <a href="section.html?section=Tonos de Gris">⚪⚫ Tonos de Gris</a>
+    <a href="section.html?section=Tonos de Naranja">🟠 Tonos de Naranja</a>
+    <a href="section.html?section=Tonos de Violeta">🟣 Tonos de Violeta</a>
+    <a href="section.html?section=Tonos de Marrón">🟤 Tonos de Marrón</a>
+    <a href="section.html?section=Tonos de Beige">🤎 Tonos de Beige</a>
+    <a href="section.html?section=Tonos de Óxido">🧱 Tonos de Óxido</a>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    const links = document.querySelectorAll('a');
+    links.forEach(link => {
+      const section = new URL(link.href).searchParams.get('section');
+      if (!data[section]) {
+        link.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
